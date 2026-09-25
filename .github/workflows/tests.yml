@@ -1,0 +1,22 @@
+name: Application tests
+on: [push, pull_request]
+permissions:
+  contents: read
+jobs:
+  javascript:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '24'
+      - run: node --test Tests/*.test.cjs
+      - run: bash -n Install-Momentum.command
+  native-compile:
+    runs-on: macos-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Compile without installing or opening the app
+        run: |
+          mkdir -p build
+          MACOSX_DEPLOYMENT_TARGET=13.0 xcrun swiftc -swift-version 5 -parse-as-library -O Native/main.swift -framework Cocoa -framework WebKit -framework UniformTypeIdentifiers -o build/Momentum

@@ -1,0 +1,11 @@
+.DS_Store
+node_modules/
+.build/
+build/
+*.app/
+*.log
+.env
+.env.*
+workspace.json
+Momentum-backup*.json
+Backups/

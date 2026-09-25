@@ -1,0 +1,121 @@
+MOMENTUM
+A personal Mac workspace for habits, goals, and business projects.
+
+INSTALL THE MAC DESKTOP APP
+1. Extract the entire Momentum-Mac.zip file.
+2. Open the Momentum folder and double-click Install-Momentum.command.
+3. The installer builds Momentum for your Mac and opens it.
+4. Keep its Dock icon: right-click the icon > Options > Keep in Dock.
+
+Requires macOS 13 or later and Apple's Swift compiler (included with Xcode
+or the free Command Line Tools). The installer uses an existing installation.
+If those tools are missing, it explains the one-time installation step:
+  xcode-select --install
+Finish Apple's installation, then run Install-Momentum.command again.
+No npm, Python, paid Apple developer account, or App Store submission is needed.
+
+If Finder doesn't launch the installer:
+Open Terminal, type "bash " (with a space, without quotes), drag
+Install-Momentum.command into the Terminal window, and press Return.
+This runs the included installer. Keep Resources and Native beside it.
+
+The application is installed in your home folder's Applications folder:
+  ~/Applications/Momentum.app
+The first build may take a minute or two, depending on your Mac.
+
+TRY THE INTERFACE IMMEDIATELY
+Open Try-Momentum.html in Safari or Chrome. This is a browser preview of
+the same interface, separate from the native desktop app.
+Its data stays in that browser; export a backup and import it into the Mac
+app if you want to transfer any work. Settings > Explore demo workspace
+shows temporary sample content without replacing your own workspace.
+The actual workspace starts empty. There are no invented accomplishments.
+
+WHAT YOU CAN DO
+- Habits: add a daily or selected-weekday habit, choose its starting date,
+  check off scheduled days, correct past check-ins, view streaks and
+  28-day history, add/edit dated notes, archive or delete habits.
+- Personal goals: choose a numerical target and unit, set a deadline,
+  update the current total, and keep a dated progress journal.
+- Projects: create as many independent projects as you need; select one
+  to add/edit/delete steps, choose priorities and deadlines, move steps
+  through To do / In progress / Complete, and write project updates.
+- Overview: habit completion, percentage of goals accomplished, project
+  completion percentage, weekly consistency, progress days, next steps,
+  and straightforward insights calculated from your actual entries.
+- Search: find items using their names, descriptions, steps, or notes.
+- Activity: see a dated record of changes.
+
+SAVING AND BACKUPS
+The desktop app saves each change to:
+  ~/Library/Application Support/Momentum/workspace.json
+Before the first change each day, it keeps the existing workspace in:
+  ~/Library/Application Support/Momentum/Backups/
+The newest 30 daily snapshots are retained. Exported backups are not deleted.
+
+Settings & backup > Export backup creates a portable JSON file.
+Settings & backup > Import backup restores a file after confirmation,
+replacing the current workspace. Export your current data first.
+File > Show Data Folder opens the data folder in Finder.
+Data is local to this Mac, with no cloud sync or account required.
+Deleting the app does not delete the separate workspace data.
+
+HOW METRICS WORK
+Habit consistency = checked-off scheduled days / scheduled days in the
+selected period. Days before creation, rest days, and dates from the
+archive date onward are excluded. Today counts and is still in progress.
+A dash means there are no eligible entries, not a failed goal.
+
+A streak counts consecutive completed scheduled days. Rest days and an
+unfinished today do not break it. An earlier missed scheduled day does.
+To change repeat days, archive a habit and create a new one. Restoring an
+archived habit creates a fresh habit; the old history remains archived.
+
+Goal progress = current total / target, capped at 100%. Goal accomplished
+means current total is at least the target. Updates use a NEW TOTAL,
+not an increment. Corrections can reduce the current total.
+
+Project completion = completed steps / all steps in unarchived projects.
+Each step has equal weight. Editing, reopening, or deleting a step
+changes the current metrics. Notes don't count as completed steps.
+
+Progress days count days with a habit check-in, a currently completed
+project step, or a positive goal update. A day is counted only once.
+Project-only progress days count days with a currently completed step.
+These are current-record metrics: deleting a record can change history.
+The activity log retains its earlier text entries when an item is deleted.
+
+SHORTCUTS
+Command-N: create an item for the current section.
+Command-K: focus search.
+Command-Shift-E: export backup (desktop app).
+Command-Shift-I: import backup (desktop app).
+Command-Q: quit the desktop app.
+Escape: dismiss a dialog.
+
+BUILD STATUS
+For the newer portfolio verification, see docs/verification.md. The results
+below describe the original package and are retained as historical context.
+
+Launcher fix: uses an explicit main-actor entry point, paired with the
+compiler flag -parse-as-library. The invalid empty selector was removed.
+This package contains the implementation and an installer that builds it
+locally. It does NOT contain a precompiled or notarized Mac executable.
+15 automated calculation and application-handler tests passed in Linux.
+JavaScript syntax and installer shell syntax were checked.
+The actual macOS build, native file dialogs, launch behavior, and visual
+layout could not be run in this environment. Treat this as a first build
+for testing on your Mac. If the installer shows an error, copy the error
+message back into the conversation so it can be fixed.
+
+SOURCE
+Resources/       Interface, styles, application handlers, and metrics.
+Native/          macOS launcher, application metadata, and icon.
+Tests/           Automated logic and handler tests (Node.js).
+Install-Momentum.command   Build and installation script.
+Try-Momentum.html          Self-contained offline browser preview.
+
+Developer check: node --test Tests/*.test.cjs
+No third-party runtime libraries are required by the application.
+Native interface foundation: Apple's WKWebView and AppKit.
+Apple reference: https://developer.apple.com/videos/play/wwdc2021/10032/
